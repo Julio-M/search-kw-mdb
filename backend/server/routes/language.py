@@ -3,7 +3,8 @@ from fastapi.encoders import jsonable_encoder
 
 from server.database import (
     retrieve_languages,
-     add_language,
+    retrieve_language,
+    add_language,
 )
 from server.models.p_language import (
     ErrorResponseModel,
@@ -25,3 +26,10 @@ async def get_languages():
     if languages:
         return ResponseModel(languages, "Languages data retrieved successfully")
     return ResponseModel(languages, "Empty list returned")
+
+@router.get("/{id}", response_description="Language retrieved")
+async def get_language(id: str):
+    language = await retrieve_language(id)
+    if language:
+        return ResponseModel(language, f"Language {language['language']} retrieved successfully")
+    return ResponseModel(language, f"Empty list returned")

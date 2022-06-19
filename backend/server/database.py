@@ -30,8 +30,16 @@ async def retrieve_languages():
         languages.append(language_helper(language))
     return languages
 
+
+# Retrieve a lanugage with a matching ID
+async def retrieve_language(id: str) -> dict:
+    language = await languages_collection.find_one({"_id": ObjectId(id)})
+    if language:
+        return language_helper(language)
+
 # Add a new language into to the database
 async def add_language(language_data: dict) -> dict:
     language = await languages_collection.insert_one(language_data)
     new_language = await languages_collection.find_one({"_id": language.inserted_id})
     return language_helper(new_language)
+
