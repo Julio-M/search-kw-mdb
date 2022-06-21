@@ -15,10 +15,12 @@ from server.models.p_language import (
 router = APIRouter()
 
 @router.post("/", response_description="Language data added into the database")
-async def add_language_data(student: LanguageSchema = Body(...)):
-    language = jsonable_encoder(student)
-    new_student = await add_language(language)
-    return ResponseModel(new_student, "Language added successfully.")
+async def add_language_data(l: LanguageSchema = Body(...)):
+    language = jsonable_encoder(l)
+    if language['language']=='':
+          return ResponseModel('Error',"Can't have empty language")
+    new_language = await add_language(language)
+    return ResponseModel(new_language, "Language added successfully.")
 
 @router.get("/", response_description="Languages retrieved")
 async def get_languages():
