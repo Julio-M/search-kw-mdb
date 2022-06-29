@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@700&display=swap');
+
+div#title{
+  font-family: 'Goldman', cursive;
+  font-size: 20px;
+}
+
+.css-hip9hq-MuiPaper-root-MuiAppBar-root{
+  background-color: #958bca;
+}
