@@ -10,7 +10,7 @@ punctuation = list(punctuation)
 stopwords = stopwords.words('english')
 
 def words(data):
-  
+
   tokens = word_tokenize(data)
 
   cleaned_tokens = [token for token in tokens if token not in stopwords
@@ -21,7 +21,7 @@ def words(data):
 
   d = count.to_dict()
 
-  return {"hello":"world"}
+  return d
 
   # all_words = word_tokenize(data)
 
