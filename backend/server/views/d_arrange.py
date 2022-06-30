@@ -16,12 +16,17 @@ def words(data):
   cleaned_tokens = [token for token in tokens if token not in stopwords
 
                     and token not in punctuation]
-
+  
   count = pd.value_counts(np.array(cleaned_tokens))
 
   d = count.to_dict()
 
-  return d
+  new_list = []
+
+  for key, value in d.items():
+   new_list.append({key:value})
+  
+  return new_list
 
   # all_words = word_tokenize(data)
 

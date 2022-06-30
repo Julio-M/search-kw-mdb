@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import Form from '../form/Form';
 import Filters from '../filters/Filters';
 import Button from '@mui/material/Button';
+import StickyHeadTable from '../table/StickyHeadTable';
+import { useState } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -16,6 +18,29 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Home({setTheme,theme}) {
+
+  const [formData,setFormData] = useState({
+    "description":""
+  })
+
+  const [data,setData] = useState([])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(e)
+    fetch(`http://0.0.0.0:8000/description/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify(formData)
+    })
+    .then( res => res.json())
+    .then( mydata => setData(mydata))
+    .catch( error => console.log(error.message));
+  }
+
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -23,11 +48,13 @@ export default function Home({setTheme,theme}) {
         <Filters/>
       </Grid>
         <Grid item md={6} sm={6} xs={12}>
-          <Form/>
-          <Button variant="contained">Submit</Button>
+          <form onSubmit={handleSubmit}>
+          <Form formData={formData} setFormData={setFormData}/>
+          <Button variant="contained" type='submit'>Submit</Button>
+          </form>
         </Grid>
         <Grid item md={6} sm={6} xs={12}>
-          <Item>2</Item>
+          <StickyHeadTable formData={formData}/>
         </Grid>
       </Grid>
     </Box>

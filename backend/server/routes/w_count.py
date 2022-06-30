@@ -15,9 +15,8 @@ router = APIRouter()
 
 @router.post("/", response_description="Sent data")
 async def description_data(l: WordSchema = Body(...)):
-    print('lololololo',l.description)
     framework = jsonable_encoder(l)
     if framework['description']=='':
           return ResponseModel('Error',"Can't have empty framework")
     new_des = words(framework['description'])
-    return ResponseModel(new_des, 'Show data')
+    return new_des
