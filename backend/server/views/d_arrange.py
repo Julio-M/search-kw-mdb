@@ -13,7 +13,7 @@ def words(data):
 
   tokens = word_tokenize(data)
 
-  cleaned_tokens = [token for token in tokens if token not in stopwords
+  cleaned_tokens = [token for token in tokens if token.lower() not in stopwords
 
                     and token not in punctuation]
   

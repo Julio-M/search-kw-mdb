@@ -1,0 +1,12 @@
+#size{
+}
+
+@media only screen and (max-width: 600px) {
+  #size {
+    width:80%;
+  }
+
+  .css-r0pjug-MuiButtonGroup-root .MuiButtonGroup-grouped{
+    font-size: 7px;
+  }
+}

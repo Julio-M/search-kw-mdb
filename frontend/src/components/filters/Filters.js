@@ -16,7 +16,8 @@ export default function Filters() {
         },
       }}
     >
-      <ButtonGroup orientation="hotizontal" variant="outlined" aria-label="outlined button group" size='small'>
+      <ButtonGroup orientation="hotizontal" variant="outlined" aria-label="outlined button group" id='size'>
+        <Button>All</Button>
         <Button>Programming languages</Button>
         <Button>Web frameworks</Button>
         <Button>Query languages</Button>
