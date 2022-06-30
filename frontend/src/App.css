@@ -1,7 +1,7 @@
 .App-dark {
   text-align: center;
   background-color: #25282A;
-  height: 100vh;
+  min-height: 100vh
 }
 
 .App-light {

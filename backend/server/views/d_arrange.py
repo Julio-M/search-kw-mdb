@@ -24,7 +24,7 @@ def words(data):
   new_list = []
 
   for key, value in d.items():
-   new_list.append({key:value})
+   new_list.append({'word':key, 'count':value})
   
   return new_list
 

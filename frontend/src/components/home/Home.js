@@ -54,7 +54,7 @@ export default function Home({setTheme,theme}) {
           </form>
         </Grid>
         <Grid item md={6} sm={6} xs={12}>
-          <StickyHeadTable formData={formData}/>
+          <StickyHeadTable data={data}/>
         </Grid>
       </Grid>
     </Box>
