@@ -6,11 +6,15 @@ from string import punctuation
 import numpy as np
 import pandas as pd
 
+from server.database import (
+    languages_collection
+)
+
+
 punctuation = list(punctuation)
 stopwords = stopwords.words('english')
 
-def words(data):
-
+async def words(data,type):
   tokens = word_tokenize(data)
 
   cleaned_tokens = [token for token in tokens if token.lower() not in stopwords
@@ -22,10 +26,14 @@ def words(data):
   d = count.to_dict()
 
   new_list = []
-
   for key, value in d.items():
-   new_list.append({'word':key, 'count':value})
-  
+   if type == 'All':
+      new_list.append({'word':key, 'count':value})
+   elif type=='Languages':
+    x = {"language" : {"$regex" : f".*{key}.*"}}
+    p_l= await languages_collection.find_one(x)
+    if p_l:
+      new_list.append({'word':key, 'count':value})
   return new_list
 
   # all_words = word_tokenize(data)

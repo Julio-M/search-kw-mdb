@@ -71,4 +71,3 @@ async def retrieve_framework(id: str) -> dict:
     framework = await frameworks_collection.find_one({"_id": ObjectId(id)})
     if framework:
         return framework_helper(framework)
-
