@@ -14,23 +14,27 @@ from server.models.c_word import (
 
 router = APIRouter()
 
-@router.post("/", response_description="Sent data")
-async def description_data(l: WordSchema = Body(...)):
-    text = jsonable_encoder(l)
+async def word_handler(r,type):
+    text = jsonable_encoder(r)
     if text['description']=='':
           return ResponseModel('Error',"Can't have empty text")
-    type ='All'
-    new_des = words(text['description'],type)
+    type = type
+    new_des = await words(text['description'],type)
     return new_des
+
+
+
+
+@router.post("/", response_description="Sent data")
+async def description_data(l: WordSchema = Body(...)):
+   type='All'
+   res = await word_handler(l,type)
+   return res
 
 @router.post("/p_languages",response_description="Sent data")
 async def p_description_data(l: WordSchema = Body(...)):
-  text = jsonable_encoder(l)
-  await words(text['description'],type="languages")
-  if text['description']=='':
-          return ResponseModel('Error',"Can't have empty text")
-  type ='Languages'
-  new = await words(text['description'],type)
-  return new
+  type='Languages'
+  res = await word_handler(l,type)
+  return res
 
   

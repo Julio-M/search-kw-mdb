@@ -28,7 +28,7 @@ export default function Home({setTheme,theme}) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(e)
-    fetch(`http://0.0.0.0:8000/description/`, {
+    fetch(`description/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
