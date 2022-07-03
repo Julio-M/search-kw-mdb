@@ -1,10 +1,11 @@
+import numbers
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import string
 from string import punctuation
 import numpy as np
 import pandas as pd
+import re
 
 from server.database import (
     languages_collection
@@ -13,13 +14,17 @@ from server.database import (
 
 punctuation = list(punctuation)
 stopwords = stopwords.words('english')
+extra = ['’', ""''"","'s","--",'–']
 
 async def words(data,type):
   tokens = word_tokenize(data)
 
-  cleaned_tokens = [token for token in tokens if token.lower() not in stopwords
+  print(punctuation)
 
-                    and token not in punctuation]
+  cleaned_tokens = [token for token in tokens if token.lower() not in stopwords and not token.isdigit()
+
+                    and token not in punctuation and token not in extra]
+
   
   count = pd.value_counts(np.array(cleaned_tokens))
 
@@ -31,9 +36,10 @@ async def words(data,type):
       new_list.append({'word':key, 'count':value})
    elif type=='Languages':
     x = {"language" : {"$regex" : f".*{key}.*"}}
+    # x = {"language" :key}
     p_l= await languages_collection.find_one(x)
     if p_l:
-      new_list.append({'word':key, 'count':value})
+      new_list.append({'word':key, 'count':value, 'notes':f"{p_l['source']}", "language":p_l['language']})
   return new_list
 
   # all_words = word_tokenize(data)

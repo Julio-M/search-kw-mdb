@@ -25,27 +25,31 @@ export default function Home({setTheme,theme}) {
 
   const [data,setData] = useState([])
 
+  const getData = (url) => {
+    fetch(`${url}`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+      },
+      body: JSON.stringify(formData)
+  })
+  .then( res => res.json())
+  .then( mydata => setData(mydata))
+  .catch( error => console.log(error.message));
+
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(e)
-    fetch(`description/`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-        },
-        body: JSON.stringify(formData)
-    })
-    .then( res => res.json())
-    .then( mydata => setData(mydata))
-    .catch( error => console.log(error.message));
+    getData('description/')
   }
 
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       <Grid item md={12} sm={12} xs={12}>
-        <Filters/>
+        <Filters setData={setData} formData={formData} getData={getData}/>
       </Grid>
         <Grid item md={6} sm={6} xs={12}>
           <form onSubmit={handleSubmit}>

@@ -39,17 +39,28 @@ export default function StickyHeadTable({data}) {
           <TableRow>
             <TableCell>Word</TableCell>
             <TableCell numeric>Count</TableCell>
+            <TableCell>Source</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((d) => (
-            <TableRow key={d.word}>
+          {data.length>0?data.map((d) => (
+            <TableRow key={d.word} sx={{wordWrap:'break-word'}}>
               <TableCell component="th" scope="row">
                 {d.word}
               </TableCell>
               <TableCell numeric>{d.count}</TableCell>
+              <TableCell component="th" scope="row" style={{
+                      whiteSpace: "normal",
+                      wordWrap: "break-word"
+                    }}>
+                {d.notes?<>
+                  <p style={{"font-style": "italic"}}>The word {d.word} might be referring to this:</p>
+                  <h4 style={{"border":"solid 1px"}}>{d.language}</h4>
+                  <a href={d.notes}>{d.notes}</a>
+                </>:"N/A"}
+              </TableCell>
             </TableRow>
-          ))}
+          )):"No data"}
         </TableBody>
       </Table>
     </Paper>

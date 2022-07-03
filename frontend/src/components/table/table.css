@@ -10,6 +10,7 @@
 
 tr {
   height: 40px !important;
+  word-wrap: break -word;
 }
 
 th {
