@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import './table.css'
+import CircularProgress from '@mui/material/CircularProgress';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,7 +40,7 @@ export default function StickyHeadTable({data}) {
           <TableRow>
             <TableCell>Word</TableCell>
             <TableCell numeric>Count</TableCell>
-            <TableCell>Source</TableCell>
+            <TableCell>Notes</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,7 +61,8 @@ export default function StickyHeadTable({data}) {
                 </>:"N/A"}
               </TableCell>
             </TableRow>
-          )):"No data"}
+          )):<div className='nodata'>No data</div>}
+          {!data?<div className='loading'><CircularProgress disableShrink size={80}/></div>:null}
         </TableBody>
       </Table>
     </Paper>

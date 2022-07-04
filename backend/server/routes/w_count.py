@@ -16,14 +16,11 @@ router = APIRouter()
 
 async def word_handler(r,type):
     text = jsonable_encoder(r)
-    if text['description']=='':
-          return ResponseModel('Error',"Can't have empty text")
+    if not text['description']:
+          return ErrorResponseModel('Error',422,"Can't have empty text")
     type = type
     new_des = await words(text['description'],type)
     return new_des
-
-
-
 
 @router.post("/", response_description="Sent data")
 async def description_data(l: WordSchema = Body(...)):
@@ -34,6 +31,12 @@ async def description_data(l: WordSchema = Body(...)):
 @router.post("/p_languages",response_description="Sent data")
 async def p_description_data(l: WordSchema = Body(...)):
   type='Languages'
+  res = await word_handler(l,type)
+  return res
+
+@router.post("/w_frameworks",response_description="Sent data")
+async def p_description_data(l: WordSchema = Body(...)):
+  type='Frameworks'
   res = await word_handler(l,type)
   return res
 

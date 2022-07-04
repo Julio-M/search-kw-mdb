@@ -8,7 +8,8 @@ import pandas as pd
 import re
 
 from server.database import (
-    languages_collection
+    languages_collection,
+    frameworks_collection
 )
 
 
@@ -18,8 +19,6 @@ extra = ['’', ""''"","'s","--",'–']
 
 async def words(data,type):
   tokens = word_tokenize(data)
-
-  print(punctuation)
 
   cleaned_tokens = [token for token in tokens if token.lower() not in stopwords and not token.isdigit()
 
@@ -32,14 +31,26 @@ async def words(data,type):
 
   new_list = []
   for key, value in d.items():
-   if type == 'All':
-      new_list.append({'word':key, 'count':value})
-   elif type=='Languages':
-    x = {"language" : {"$regex" : f".*{key}.*"}}
-    # x = {"language" :key}
-    p_l= await languages_collection.find_one(x)
-    if p_l:
-      new_list.append({'word':key, 'count':value, 'notes':f"{p_l['source']}", "language":p_l['language']})
+   if key[0].isdigit():
+    print(key)
+   else:
+    if type == 'All':
+        new_list.append({'word':key, 'count':value})
+    elif type=='Languages':
+      # x = {"language" : {"$regex" : f".*{key}.*"}}
+      x={"language":key}
+      p_l= languages_collection.find(x).collation({ "locale": 'en', "strength": 2 })
+      my_list = await p_l.to_list(length=1)
+      if len(my_list)>0:
+        new_list.append({'word':key, 'count':value, 'notes':f"{my_list[0]['source']}", "language":my_list[0]['language']})
+    elif type=='Frameworks':
+      # x = {"name" : {"$regex" : f".*{key}.*"}}
+      x={"name":key}
+      # p_l= await frameworks_collection.find_one(x)
+      p_l= frameworks_collection.find(x).collation({ "locale": 'en', "strength": 2 })
+      my_list = await p_l.to_list(length=1)
+      if len(my_list)>0:
+        new_list.append({'word':key, 'count':value, 'language':f"{my_list[0]['name']}", "notes":my_list[0]['type']})
   return new_list
 
   # all_words = word_tokenize(data)

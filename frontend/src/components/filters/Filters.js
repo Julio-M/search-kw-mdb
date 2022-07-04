@@ -5,9 +5,10 @@ import Box from '@mui/material/Box';
 import './filters.css'
 import { useState } from 'react';
 
-export default function Filters({formData,setData, setUrl,getData}) {
+export default function Filters({getData, setData}) {
 
   const handleClick = (e) => {
+    setData("")
     let url = e.target.value 
     getData(url)
   }
@@ -24,11 +25,11 @@ export default function Filters({formData,setData, setUrl,getData}) {
       }}
     >
       <ButtonGroup orientation="hotizontal" variant="outlined" aria-label="outlined button group" id='size'>
-        <Button>All</Button>
+        <Button onClick={handleClick} value={`description`}>All</Button>
         <Button onClick={handleClick} value={`description/p_languages`}>Programming languages</Button>
-        <Button onClick={handleClick} value={`test`} >Web frameworks</Button>
-        <Button onClick={handleClick} value={`test1`} >Query languages</Button>
-        <Button onClick={handleClick} value={`test2`} >Database Managment</Button>
+        <Button onClick={handleClick} value={`description/w_frameworks`} >Web frameworks</Button>
+        {/*<Button onClick={handleClick} value={`test1`} >Query languages</Button>
+        <Button onClick={handleClick} value={`test2`} >Database Managment</Button> */}
       </ButtonGroup>
     </Box>
   );
