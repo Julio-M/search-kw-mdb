@@ -12,6 +12,7 @@ from ..database import (
     frameworks_collection
 )
 
+nltk.download('stopwords')
 
 punctuation = list(punctuation)
 stopwords = stopwords.words('english')
