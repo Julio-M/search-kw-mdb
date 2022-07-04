@@ -23,7 +23,7 @@ export default function MenuAppBar({theme,setTheme}) {
             sx={{ mr: 2 }}
           >
             <FormGroup>
-              <FormControlLabel control={<Switch defaultChecked />} onChange={()=>setTheme((theme)=>!theme)} label={"Switch to"}/>
+              <FormControlLabel control={<Switch defaultChecked />} onChange={()=>setTheme((theme)=>!theme)} label="Switch Mode"/>
             </FormGroup>
           </IconButton>
           <Typography id="title" variant="h6" component="div" sx={{ flexGrow: 1 }}>
