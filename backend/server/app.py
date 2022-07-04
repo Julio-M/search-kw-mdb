@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
-from server.routes.language import router as LanguageRouter
-from server.routes.framework import router as FrameworkRouter
-from server.routes.w_count import router as WordRouter
+from .routes.language import router as LanguageRouter
+from .routes.framework import router as FrameworkRouter
+from .routes.w_count import router as WordRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
