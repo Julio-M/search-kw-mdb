@@ -13,6 +13,7 @@ from ..database import (
 )
 
 nltk.download('stopwords')
+nltk.download('punkt')
 
 punctuation = list(punctuation)
 stopwords = stopwords.words('english')
