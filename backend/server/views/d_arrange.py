@@ -32,7 +32,7 @@ async def words(data,type):
   new_list = []
   for key, value in d.items():
    if key[0].isdigit():
-    print(key)
+    pass
    else:
     if type == 'All':
         new_list.append({'word':key, 'count':value})
