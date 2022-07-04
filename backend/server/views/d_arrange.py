@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import re
 
-from server.database import (
+from ..database import (
     languages_collection,
     frameworks_collection
 )

@@ -10,8 +10,8 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), "static")
-templates = Jinja2Templates(directory="templates")
+# app.mount("/static", StaticFiles(directory="static"), name="static")
+# templates = Jinja2Templates(directory="templates")
 
 origins = ["*"]
 
@@ -28,10 +28,10 @@ app.include_router(FrameworkRouter, tags=["Framework"], prefix="/framework")
 app.include_router(WordRouter, tags=["Description"], prefix="/description")
 
 
-# @app.get("/", tags=["Root"])
-# async def read_root():
-#     return {"message": "Welcome"}
+@app.get("/", tags=["Root"])
+async def read_root():
+    return {"message": "Welcome"}
 
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+# @app.get("/", response_class=HTMLResponse)
+# async def home(request: Request):
+#     return templates.TemplateResponse("index.html", {"request": request})
