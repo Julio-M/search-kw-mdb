@@ -3,10 +3,10 @@ from fastapi.encoders import jsonable_encoder
 import string
 import requests
 
-from server.views.d_arrange import (
+from ..views.d_arrange import (
     words,
 )
-from server.models.c_word import (
+from ..models.c_word import (
     ErrorResponseModel,
     ResponseModel,
     WordSchema,

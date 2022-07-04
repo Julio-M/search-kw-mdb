@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
-from server.database import (
+from ..database import (
     retrieve_languages,
     retrieve_language,
     add_language,
 )
-from server.models.p_language import (
+from ..models.p_language import (
     ErrorResponseModel,
     ResponseModel,
     LanguageSchema,

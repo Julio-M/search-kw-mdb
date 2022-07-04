@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
-from server.database import (
+from ..database import (
     retrieve_frameworks,
     retrieve_framework,
     add_framework,
 )
-from server.models.w_framework import (
+from ..models.w_framework import (
     ErrorResponseModel,
     ResponseModel,
     WebFrameworkSchema,
